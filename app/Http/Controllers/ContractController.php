@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\service\PdfFormService;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+class ContractController extends Controller
+{
+    public function generate(Request $request, PdfFormService $pdfFormService)
+    {
+        $data = $request->validate([
+            'patient_name' => ['required', 'string'],
+            'diagnostic_type' => ['required', 'string'],
+            'date_of_accident' => ['required', 'string'],
+            'signature' => ['nullable', 'string'],
+            'date_of_signature' => ['required', 'string'],
+            'address' => ['required', 'string'],
+            'date_of_birth' => ['required', 'string'],
+            'phone' => ['required', 'string'],
+            'claim' => ['required', 'string'],
+            'insurance_company' => ['required', 'string'],
+            'cardio_tech' => ['nullable', 'file', 'mimes:pdf', 'max:10240'],
+            'heart_health' => ['nullable', 'file', 'mimes:pdf', 'max:10240'],
+        ]);
+        $cardioTechFile = $request->file('cardio_tech')?->getRealPath();
+
+        $heartHealthFile = $request->file('heart_health')?->getRealPath();
+        $holterFile = $request->file('holter')?->getRealPath();
+        $mctFile = $request->file('mct')?->getRealPath();
+
+        $fileName = Str::title($data['patient_name']) . '_' . $data['diagnostic_type'] . ' ' . Carbon::now()->format('m-d-Y-h-i-s') . '.pdf';
+        $signatureFile = $pdfFormService->generate($data, Str::uuid() . '.pdf');
+        // $finalPath = $pdfFormService->merge([$cardioTechFile, $signatureFile, $holterFile, $mctFile]);
+        $finalPath = $pdfFormService->mergePy([$cardioTechFile, $signatureFile, $holterFile, $mctFile]);
+        return response()->download($finalPath, $fileName)->deleteFileAfterSend(true);
+    }
+}
