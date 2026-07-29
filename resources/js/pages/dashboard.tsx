@@ -81,6 +81,139 @@ export default function Dashboard() {
                                 required
                             />
                         </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="date_of_signature">
+                                Date of signature
+                            </Label>
+                            <Input
+                                id="date_of_signature"
+                                name="date_of_signature"
+                                type="text"
+                                placeholder="MM/DD/YYYY"
+                                required
+                            />
+                        </div>
+
+                        <div className="grid gap-2">
+                            <Label htmlFor="date_of_birth">Date of birth</Label>
+                            <Input
+                                id="date_of_birth"
+                                name="date_of_birth"
+                                type="text"
+                                placeholder="MM/DD/YYYY"
+                                required
+                            />
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="date_of_accident">
+                                Date of accident
+                            </Label>
+                            <Input
+                                id="date_of_accident"
+                                name="date_of_accident"
+                                type="text"
+                                placeholder="MM/DD/YYYY"
+                                required
+                            />
+                        </div>
+
+
+
+                        <div className="grid gap-2">
+                            <Label htmlFor="address">Address</Label>
+                            <Input
+                                id="address"
+                                name="address"
+                                placeholder="123 Main Street"
+                                className="capitalize"
+                                required
+                            />
+                        </div>
+
+
+
+                        <div className="grid gap-2">
+                            <Label htmlFor="phone">Phone</Label>
+                            <Input
+                                id="phone"
+                                name="phone"
+                                placeholder="555 123 4567"
+                                required
+                            />
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="insurance_company">
+                                Insurance company
+                            </Label>
+                            <Select
+                                value={insuranceCompany}
+                                onValueChange={setInsuranceCompany}
+                            >
+                                <SelectTrigger
+                                    id="insurance_company"
+                                    className="w-full"
+                                >
+                                    <SelectValue placeholder="Select insurance" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="ALL STATE INSURANCE">
+                                        ALL STATE INSURANCE
+                                    </SelectItem>
+                                    <SelectItem value="ASSURANCE AMERICA INSURANCE">
+                                        ASSURANCE AMERICA INSURANCE
+                                    </SelectItem>
+                                    <SelectItem value="BRISTOL WEST">
+                                        BRISTOL WEST
+                                    </SelectItem>
+                                    <SelectItem value="COUNTRY WIDE INSURANCE">
+                                        COUNTRY WIDE INSURANCE
+                                    </SelectItem>
+                                    <SelectItem value="DAIRYLAND INSURANCE COMPANY">
+                                        DAIRYLAND INSURANCE COMPANY
+                                    </SelectItem>
+                                    <SelectItem value="FOREMOST INSURANCE">
+                                        FOREMOST INSURANCE
+                                    </SelectItem>
+                                    <SelectItem value="GEICO">GEICO</SelectItem>
+                                    <SelectItem value="INTEGON">
+                                        INTEGON
+                                    </SelectItem>
+                                    <SelectItem value="MAPFRE">
+                                        MAPFRE
+                                    </SelectItem>
+                                    <SelectItem value="NATIONAL GENERAL INSURANCE">
+                                        NATIONAL GENERAL INSURANCE
+                                    </SelectItem>
+                                    <SelectItem value="PERSONAL SERVICE INSURANCE COMPANY">
+                                        PERSONAL SERVICE INSURANCE COMPANY
+                                    </SelectItem>
+                                    <SelectItem value="PROGRESSIVE">
+                                        PROGRESSIVE
+                                    </SelectItem>
+                                    <SelectItem value="SAFETY INSURANCE">
+                                        SAFETY INSURANCE
+                                    </SelectItem>
+                                    <SelectItem value="STATE FARM INS">
+                                        STATE FARM INS
+                                    </SelectItem>
+                                </SelectContent>
+                            </Select>
+                            <input
+                                type="hidden"
+                                name="insurance_company"
+                                value={insuranceCompany}
+                            />
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="claim">Claim</Label>
+                            <Input
+                                id="claim"
+                                name="claim"
+                                placeholder="Claim details"
+                                required
+                            />
+                        </div>
+
 
                         <div className="grid gap-2">
                             <Label htmlFor="diagnostic_type">
@@ -113,111 +246,6 @@ export default function Dashboard() {
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="date_of_accident">
-                                Date of accident
-                            </Label>
-                            <Input
-                                id="date_of_accident"
-                                name="date_of_accident"
-                                type="text"
-                                placeholder="MM/DD/YYYY"
-                                required
-                            />
-                        </div>
-
-                        <div className="grid gap-2">
-                            <Label htmlFor="date_of_signature">
-                                Date of signature
-                            </Label>
-                            <Input
-                                id="date_of_signature"
-                                name="date_of_signature"
-                                type="text"
-                                placeholder="MM/DD/YYYY"
-                                required
-                            />
-                        </div>
-
-                        <div className="grid gap-2 md:col-span-2">
-                            <Label htmlFor="address">Address</Label>
-                            <Input
-                                id="address"
-                                name="address"
-                                placeholder="123 Main Street"
-                                className="capitalize"
-                                required
-                            />
-                        </div>
-
-                        <div className="grid gap-2">
-                            <Label htmlFor="date_of_birth">Date of birth</Label>
-                            <Input
-                                id="date_of_birth"
-                                name="date_of_birth"
-                                type="text"
-                                placeholder="MM/DD/YYYY"
-                                required
-                            />
-                        </div>
-
-                        <div className="grid gap-2">
-                            <Label htmlFor="phone">Phone</Label>
-                            <Input
-                                id="phone"
-                                name="phone"
-                                placeholder="555 123 4567"
-                                required
-                            />
-                        </div>
-
-                        <div className="grid gap-2 md:col-span-2">
-                            <Label htmlFor="claim">Claim</Label>
-                            <Input
-                                id="claim"
-                                name="claim"
-                                placeholder="Claim details"
-                                required
-                            />
-                        </div>
-
-                        <div className="grid gap-2">
-                            <Label htmlFor="insurance_company">
-                                Insurance company
-                            </Label>
-                            <Select
-                                value={insuranceCompany}
-                                onValueChange={setInsuranceCompany}
-                            >
-                                <SelectTrigger
-                                    id="insurance_company"
-                                    className="w-full"
-                                >
-                                    <SelectValue placeholder="Select insurance" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="GEICO">GEICO</SelectItem>
-                                    <SelectItem value="PROGRESSIVE">
-                                        PROGRESSIVE
-                                    </SelectItem>
-                                    <SelectItem value="ASSURANCE AMERICA INSURANCE">
-                                        ASSURANCE AMERICA INSURANCE
-                                    </SelectItem>
-                                    <SelectItem value="ALL STATE INSURANCE">
-                                        ALL STATE INSURANCE
-                                    </SelectItem>
-                                    <SelectItem value="STATE FARM INS">
-                                         STATE FARM INS
-                                    </SelectItem>
-                                </SelectContent>
-                            </Select>
-                            <input
-                                type="hidden"
-                                name="insurance_company"
-                                value={insuranceCompany}
-                            />
-                        </div>
-
-                        <div className="grid gap-2">
                             <Label htmlFor="signature">Signature</Label>
                             <Input
                                 id="signature"
@@ -226,6 +254,7 @@ export default function Dashboard() {
                                 className="capitalize"
                             />
                         </div>
+
                         <div className="grid gap-2">
                             <Label htmlFor="holter">Holter</Label>
                             <Input

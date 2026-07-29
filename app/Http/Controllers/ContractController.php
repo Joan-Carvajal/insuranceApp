@@ -24,13 +24,23 @@ class ContractController extends Controller
             'cardio_tech' => ['nullable', 'file', 'mimes:pdf', 'max:10240'],
             'heart_health' => ['nullable', 'file', 'mimes:pdf', 'max:10240'],
         ]);
+        if (str_contains($data['patient_name'], ',')) {
+            $parts = explode(',', $data['patient_name'], 2);
+            $data['patient_name'] = trim($parts[1]) . ' ' . trim($parts[0]);
+        }
+        $data['patient_name'] = Str::title($data['patient_name']);
+
+        if (empty($data['signature'])) {
+            $data['signature'] = $data['patient_name'];
+        }
+
         $cardioTechFile = $request->file('cardio_tech')?->getRealPath();
 
         $heartHealthFile = $request->file('heart_health')?->getRealPath();
         $holterFile = $request->file('holter')?->getRealPath();
         $mctFile = $request->file('mct')?->getRealPath();
-
-        $fileName = Str::title($data['patient_name']) . '_' . $data['diagnostic_type'] . ' ' . Carbon::now()->format('m-d-Y-h-i-s') . '.pdf';
+//  Carbon::now()->format('m-d-Y-h-i-s') . 
+        $fileName = $data['patient_name'] . '_' . $data['diagnostic_type'] . ' ' .'.pdf';
         $signatureFile = $pdfFormService->generate($data, Str::uuid() . '.pdf');
         // $finalPath = $pdfFormService->merge([$cardioTechFile, $signatureFile, $holterFile, $mctFile]);
         $finalPath = $pdfFormService->mergePy([$cardioTechFile, $signatureFile, $holterFile, $mctFile]);

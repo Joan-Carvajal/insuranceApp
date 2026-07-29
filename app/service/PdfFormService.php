@@ -56,7 +56,7 @@ public function mergePy(array $files): string
         ...$files,
         $output,
     ]);
-    $process->setTimeout(120);
+    $process->setTimeout(200);
     $process->run();
 
     if (!$process->isSuccessful()) {
@@ -83,7 +83,6 @@ public function mergePy(array $files): string
             'app/templates/insuranceLawNew.pdf'
         );
 
-        $data['patient_name'] = Str::title($data['patient_name']);
         $data['signature'] = Str::title($data['signature']);
         $pageCount = $pdf->setSourceFile($templatePath);
 
