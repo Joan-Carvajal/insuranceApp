@@ -1,6 +1,15 @@
 import { Head } from '@inertiajs/react';
-import { useState } from 'react';
+import { AlertTriangle } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -13,9 +22,24 @@ import {
 import { dashboard } from '@/routes';
 import 'filepond/dist/filepond.min.css';
 
-export default function Dashboard() {
+type DashboardProps = {
+    flash?: {
+        error?: string;
+    };
+};
+
+export default function Dashboard({ flash }: DashboardProps) {
     const [insuranceCompany, setInsuranceCompany] = useState('GEICO');
     const [diagnosticType, setDiagnosticType] = useState('Cardiotech Diagnostics');
+    const [errorModalOpen, setErrorModalOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+        if (flash?.error) {
+            setErrorMessage(flash.error);
+            setErrorModalOpen(true);
+        }
+    }, [flash?.error]);
 
     const handleClear = () => {
         const form = document.querySelector('form');
@@ -32,6 +56,28 @@ export default function Dashboard() {
     return (
         <>
             <Head title="Dashboard" />
+
+            <Dialog open={errorModalOpen} onOpenChange={setErrorModalOpen}>
+                <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                        <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-destructive/10">
+                            <AlertTriangle className="size-6 text-destructive" />
+                        </div>
+                        <DialogTitle className="text-center">Error</DialogTitle>
+                        <DialogDescription className="text-center">
+                            {errorMessage}
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter className="sm:justify-center">
+                        <Button
+                            variant="outline"
+                            onClick={() => setErrorModalOpen(false)}
+                        >
+                            Cerrar
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
 
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="rounded-2xl border border-sidebar-border/70 bg-background p-6 shadow-sm dark:border-sidebar-border">
@@ -195,6 +241,9 @@ export default function Dashboard() {
                                     </SelectItem>
                                     <SelectItem value="STATE FARM INS">
                                         STATE FARM INS
+                                    </SelectItem>
+                                    <SelectItem value="ENTERPRISE RENT A CAR">
+                                        ENTERPRISE RENT A CAR
                                     </SelectItem>
                                 </SelectContent>
                             </Select>
